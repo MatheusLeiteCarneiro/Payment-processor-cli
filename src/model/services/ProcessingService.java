@@ -5,10 +5,10 @@ import model.entities.Installment;
 
 import java.time.LocalDate;
 
-public class ContractService {
+public class ProcessingService {
     PaymentService paymentService;
 
-    public ContractService(PaymentService paymentService) {
+    public ProcessingService(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
