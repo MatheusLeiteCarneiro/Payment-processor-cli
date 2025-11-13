@@ -18,12 +18,15 @@ public class ProcessingService {
 
     public void processInstallments(Contract contract, int months){
         LocalDate contractDate = contract.getDate();
-        double contractValue = contract.getBasePrice();
-        for (int i = 1; i <= months; i++){
-            LocalDate dueDate = contractDate.plusMonths(i);
-            double installmentPrice = paymentService.paymentProcessing(contractValue, i);
-            contract.addInstallment(new Installment(dueDate, installmentPrice));
+        double installmentPrice = paymentService.paymentProcessing(contract.getBasePrice(), months) / months;
+        if(paymentService instanceof CreditService) {
+            for (int i = 1; i <= months; i++) {
+                LocalDate dueDate = contractDate.plusMonths(i);
+                contract.addInstallment(new Installment(dueDate, installmentPrice));
+            }
         }
-
+        else{
+            contract.addInstallment(new Installment(LocalDate.now(),installmentPrice));
+        }
     }
 }
