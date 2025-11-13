@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +56,15 @@ public class Contract {
     public void addInstallment(Installment installment){
         installmentList.add(installment);
     }
+
+    public String showAllInstallments(){
+        StringBuilder sb = new StringBuilder();
+        for (Installment installment : installmentList){
+            sb.append(installment.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+                    " - " + String.format("%.2f%n",installment.getPrice()));
+        }
+        return sb.toString();
+    }
+
 
 }
