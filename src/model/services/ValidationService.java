@@ -32,7 +32,7 @@ public class ValidationService {
 
     public static void paymentValidation(int method) throws PaymentMethodException {
         if(method != 1 && method != 2 && method != 3){
-            throw new PaymentMethodException("Type a valid method: ");
+            throw new PaymentMethodException("Invalid payment method. Must be 1, 2, or 3.");
         }
 
     }
