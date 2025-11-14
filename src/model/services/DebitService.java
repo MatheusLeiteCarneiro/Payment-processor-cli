@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DebitService implements PaymentService{
-    private static final double DEBIT_FEE = 0.0025;
+    private static final double DEBIT_FEE = 0.0149;
 
         @Override
         public List<Installment> generateInstallments(double value, LocalDate contractDate, int installmentAmount) {

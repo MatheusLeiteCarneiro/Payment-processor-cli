@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreditService implements PaymentService{
-    private static final double CREDIT_BASE_FEE = 0.007;
-    private static final double CREDIT_MONTHLY_INTEREST = 0.001;
+    private static final double CREDIT_BASE_FEE = 0.0299;
+    private static final double CREDIT_MONTHLY_INTEREST = 0.0199;
 
     @Override
     public List<Installment> generateInstallments(double value, LocalDate contractDate, int installmentAmount) {

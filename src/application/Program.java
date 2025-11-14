@@ -88,14 +88,14 @@ public class Program {
                 service.processInstallments(contract, installmentAmount);
                 break;
             case 2:
-                System.out.println("(A 0.25% processing fee applies to all debit payments).\n");
+                System.out.println("(A 1.49% processing fee applies to all debit payments).\n");
                 installmentAmount = 1;
                 service = new ProcessingService(new DebitService());
                 service.processInstallments(contract, installmentAmount);
                 break;
             case 3:
                 System.out.println("Monthly interest applies after 3 installments with a maximum of 12 installments.");
-                System.out.println("(A 0.7% processing fee applies to all credit payments).\n");
+                System.out.println("(A 2.99% processing fee applies to all credit payments).\n");
                 while (true) {
                     System.out.print("Enter the amount of Installments you want: ");
                     try{
