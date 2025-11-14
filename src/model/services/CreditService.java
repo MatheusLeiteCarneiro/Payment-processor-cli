@@ -2,17 +2,28 @@ package model.services;
 
 import model.entities.Installment;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreditService implements PaymentService{
     private static final double CREDIT_BASE_FEE = 0.007;
     private static final double CREDIT_MONTHLY_INTEREST = 0.001;
 
     @Override
-    public double paymentProcessing(double value, int installmentAmount) {
-        double total = value + value * CREDIT_BASE_FEE;
+    public List<Installment> generateInstallments(double value, LocalDate contractDate, int installmentAmount) {
+        value += value * CREDIT_BASE_FEE;
+        List<Installment> installments = new ArrayList<>();
         if(installmentAmount > 3){
-            total = value * Math.pow(1 + CREDIT_MONTHLY_INTEREST, installmentAmount);
-            total += value * CREDIT_BASE_FEE;
+            value *=  Math.pow(1 + CREDIT_MONTHLY_INTEREST, installmentAmount);
         }
-        return total;
+        double valuePerInstallment = value / installmentAmount;
+
+        for (int i = 1; i <= installmentAmount; i++){
+            installments.add(new Installment(contractDate.plusMonths(i), valuePerInstallment));
+        }
+
+        return installments;
+
     }
 }

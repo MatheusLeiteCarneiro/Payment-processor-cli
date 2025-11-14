@@ -1,7 +1,12 @@
 package model.services;
 
+import model.entities.Installment;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public interface PaymentService {
 
-    double paymentProcessing(double value, int installmentAmount);
+    List<Installment> generateInstallments(double value, LocalDate contractDate, int installmentAmount);
 
 }

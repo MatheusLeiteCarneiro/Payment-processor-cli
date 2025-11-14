@@ -1,9 +1,21 @@
 package model.services;
 
+import model.entities.Installment;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DebitService implements PaymentService{
     private static final double DEBIT_FEE = 0.0025;
-    @Override
-    public double paymentProcessing(double value, int installmentAmount) {
-        return value + value * DEBIT_FEE;
-    }
+
+        @Override
+        public List<Installment> generateInstallments(double value, LocalDate contractDate, int installmentAmount) {
+            value += value * DEBIT_FEE;
+            List<Installment> installments = new ArrayList<>();
+            installments.add(new Installment(contractDate, value));
+            return installments;
+        }
+
+
 }
