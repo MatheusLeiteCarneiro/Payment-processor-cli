@@ -3,8 +3,8 @@ package model.services;
 import model.entities.Installment;
 
 public class CreditService implements PaymentService{
-    private static final double CREDIT_BASE_FEE = 0.02;
-    private static final double CREDIT_MONTHLY_INTEREST = 0.015;
+    private static final double CREDIT_BASE_FEE = 0.007;
+    private static final double CREDIT_MONTHLY_INTEREST = 0.001;
 
     @Override
     public double paymentProcessing(double value, int installmentAmount) {
