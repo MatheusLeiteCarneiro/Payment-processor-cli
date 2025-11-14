@@ -3,14 +3,13 @@ package application;
 import model.entities.Contract;
 import model.exceptions.InstallmentException;
 import model.exceptions.PaymentMethodException;
-import model.services.CreditService;
-import model.services.DebitService;
-import model.services.PixService;
-import model.services.ProcessingService;
+import model.services.*;
 
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Scanner;
+
+
 
 public class Program {
 
@@ -20,24 +19,58 @@ public class Program {
 
         System.out.println("Welcome to the payment processor system\n");
         System.out.println("Enter the contract data:");
-        System.out.print("Number: ");
-        int contractNumber = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Payer name: ");
-        String payerName = sc.nextLine();
-        System.out.print("Base price: ");
-        double basePrice = sc.nextDouble();
 
+        int contractNumber;
+        while (true){
+        System.out.print("Number: ");
+        try {
+            contractNumber = sc.nextInt();
+            ValidationService.verifyContractNumber(contractNumber);
+            break;
+        }
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+
+        }
+
+        sc.nextLine();
+        String payerName;
+
+        while (true) {
+            System.out.print("Payer name: ");
+            try {
+                payerName = sc.nextLine();
+                ValidationService.verifyName(payerName);
+                break;
+            }
+            catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+
+        }
+        double basePrice;
+        while (true) {
+            System.out.print("Base price: ");
+            try{
+                basePrice = sc.nextDouble();
+                ValidationService.verifyPrice(basePrice);
+                break;
+            }
+            catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
         Contract contract = new Contract(contractNumber, payerName, basePrice, LocalDate.now());
 
-        int paymentMethod = 0;
-        int installmentAmount = 0;
+        int paymentMethod;
+        int installmentAmount;
         System.out.println("Select a payment method: ");
         while (true){
             System.out.print("Digit-(1-pix|2-DebitCard|3-CreditCard): ");
             try {
                 paymentMethod = sc.nextInt();
-                paymentValidation(paymentMethod);
+                ValidationService.paymentValidation(paymentMethod);
                 break;
             }
             catch (PaymentMethodException e){
@@ -63,7 +96,7 @@ public class Program {
                     System.out.print("Enter the amount of Installments you want: ");
                     try{
                         installmentAmount = sc.nextInt();
-                        verifyInstallment(installmentAmount);
+                        ValidationService.verifyInstallment(installmentAmount);
                         break;
                     }
                     catch (InstallmentException e){
@@ -82,18 +115,6 @@ public class Program {
 
 
         sc.close();
-    }
-    public static void verifyInstallment(int installmentAmount){
-        if(installmentAmount < 1 || installmentAmount > 12){
-            throw new InstallmentException("The installment amount must be between 1 and 12");
-        }
-    }
-
-    public static void paymentValidation(int method){
-        if(method != 1 && method != 2 && method != 3){
-            throw new PaymentMethodException("Type a valid method: ");
-        }
-
     }
 
 }
